@@ -9,9 +9,9 @@ describe "Static pages" do
       expect(page).to have_content('Memorial App')
     end
 
-    it "should have the title 'Home'" do
+    it "should have the base title" do
     	visit '/static_pages/home'
-    	expect(page).to have_title("Memorial App | Home")
+    	expect(page).to have_title("Memorial App")
     end
   end
 
