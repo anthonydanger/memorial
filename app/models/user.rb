@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 	before_save { self.email = email.downcase }
 	before_create :create_remember_token
 
-	has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+	has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :clip => "52x52>"}, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -25,6 +25,6 @@ class User < ActiveRecord::Base
 private
 	
 	def create_remember_token
-		self.remeber_token = User.hash(User.new_remember_token)
+		self.remember_token = User.hash(User.new_remember_token)
 	end 
 end
