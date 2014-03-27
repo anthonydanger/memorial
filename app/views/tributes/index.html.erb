@@ -1,0 +1,18 @@
+<% provide(:title, 'All Tributes') %>
+<h1>All Tributes</h1>
+
+<div id="tributes" class="transitions-enabled">
+  <% @tributes.each do |tribute| %>
+    <div class="box panel panel-default">
+      <%= image_tag tribute.image.url(:medium) %>
+      <div class="panel-body">
+	      <%= tribute.name %>
+	      <%= link_to 'Show', tribute_path(tribute) %>
+	      <% if tribute.user == current_user %>
+	        <%= link_to 'Edit', edit_tribute_path(tribute) %>
+	        <%= link_to 'Destroy', tribute, method: :delete, data: { confirm: 'Are you sure?' } %>
+	      <% end %>
+	    </div>
+    </div>
+  <% end %>
+</div>

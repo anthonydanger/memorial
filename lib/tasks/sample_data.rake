@@ -15,7 +15,12 @@ namespace :db do
 										password: password,
 										password_confirmation: password)
 		end
-
-		User.all.each { |user| user.avatar = File.open(Dir.glob(File.join(Rails.root, 'sampleimages', '*')).sample); user.save! }
+			users = User.all(limit: 6)
+			2.times do |n|
+				obituary = Faker::Lorem.paragraph
+				name = Faker::Name.name
+				users.each { |user| user.tributes.create!(obituary: obituary,
+																									name: name)}
+		end
 	end
 end

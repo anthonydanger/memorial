@@ -9,4 +9,12 @@
 			</h1>
 		</section>
 	</aside>
+	<div class="span8">
+		<% if @user.tributes.any? %>
+			<h3>Memorials (<%= @user.tributes.count %>)</h3>
+			<ol class="tributes">
+				<%= render @tributes %>
+			</ol>
+		<% end %>
+	</div>
 </div>

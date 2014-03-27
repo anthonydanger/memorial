@@ -1,0 +1,10 @@
+<li>
+  <span class="obituary">
+  	<%= tribute.image.url(:thumb) %>
+  	<%= link_to tribute.name, tribute_path(tribute) %>:
+  	<%= tribute.obituary %>
+  </span>
+  <span class="timestamp">
+    Created <%= time_ago_in_words(tribute.created_at) %> ago.
+  </span>
+</li>
