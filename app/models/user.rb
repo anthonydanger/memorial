@@ -1,10 +1,14 @@
 class User < ActiveRecord::Base
 	has_many :tributes
+	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed
+  has_many :reverse_relationships, foreign_key: "followed_id",
+                                   class_name: "Relationship",
+                                   dependent: :destroy
+  has_many :followers, through: :reverse_relationships, source: :follower
+
 	before_save { self.email = email.downcase }
 	before_create :create_remember_token
-
-	has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :clip => "52x52>"}, :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -22,6 +26,17 @@ class User < ActiveRecord::Base
 		Digest::SHA1.hexdigest(token.to_s)
 	end
 
+  def following?(tribute)
+    relationships.find_by(followed_id: tribute.id)
+  end
+
+  def follow!(tribute)
+    relationships.create!(followed_id: tribute.id)
+  end
+
+  def unfollow!(tribute)
+    relationships.find_by(followed_id: tribute.id).destroy
+  end
 
 private
 	

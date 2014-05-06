@@ -1,9 +1,29 @@
-<div class="center hero-unit">
-  <h1>Welcome to the <br> Memorial App</h1>
+<% if signed_in? %>
+	<div class="row">
+	<aside class="span4">
+		<section>
+			<%= gravatar_for current_user, 75 %>
+			<h1>
+				<%= current_user.name %>
+			</h1>
+			<span>
+				<%= link_to pluralize(current_user.tributes.count, "tributes"), current_user %>
+			</span>
+		</section>
+		<%= link_to "Create a Tribute", new_tribute_path, class: "btn btn-primary" %>	
+	</aside>
+</div>
 
-  <h2>
-    This is the home page.
-  </h2>
+<% else %>
+
+<div class="center hero-unit">
+  <h1>Welcome to Tributes</h1>
+
+	  <h2>
+	    This is the home page.
+	  </h2>
 
   <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
 </div>
+
+<% end %>	

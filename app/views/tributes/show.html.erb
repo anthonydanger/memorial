@@ -1,14 +1,27 @@
 <% provide(:title, @tribute.name) %>
-<div class="box">
+<div class="row">
 	<aside class="span4">
 		<section>
 			<h1>
 				<%= image_tag @tribute.image.url(:thumb) %>
 				<%= @tribute.name %>
 			</h1>
-			<%= @tribute.name %> was born <%= @tribute.dob %> and passed away one <%= @tribute.dod %> 
-			<%= @tribute.obituary %>
+			Created with love by <%= link_to @user.name, @user %>.
 		</section>
-		Created with love by <%= @user.name %>.
+		<section>
+			<%= render 'shared/stats' %>
+		</section>
 	</aside>
+
+	<div class="span8"%>
+		<div id="follow_form">
+			<% if current_user.following?(@tribute) %>
+				<%= render 'unfollow' %>
+			<% else %>
+				<%= render 'follow' %>
+		<% end %>
+	</div>
+		<%= @tribute.name %> was born <%= @tribute.dob.to_formatted_s(:long_ordinal) %> and passed away on <%= @tribute.dod.to_formatted_s(:long_ordinal) %>. 
+		<%= @tribute.obituary %>
+	</div>
 </div>

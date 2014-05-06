@@ -32,6 +32,20 @@ class TributesController < ApplicationController
     #redirect_to tributes_url
   end
 
+  def following
+    @title = "Following"
+    @tribute = Tribute.find(params[:id])
+    @users = @tribute.followed_users
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @tribute = Tribute.find(params[:id])
+    @users = @tribute.followers
+    render 'show_follow'
+  end
+
 
 private
 

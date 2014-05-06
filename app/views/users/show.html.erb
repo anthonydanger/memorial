@@ -3,7 +3,8 @@
 	<aside class="span4">
 		<section>
 			<h1>
-				<%= image_tag @user.avatar.url(:thumb) %>
+				<%= gravatar_for @user, 50 %>
+				<br>
 				<%= @user.name %>
 
 			</h1>
@@ -11,7 +12,7 @@
 	</aside>
 	<div class="span8">
 		<% if @user.tributes.any? %>
-			<h3>Memorials (<%= @user.tributes.count %>)</h3>
+			<h3>My Memorials</h3>
 			<ol class="tributes">
 				<%= render @tributes %>
 			</ol>
